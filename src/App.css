@@ -1,38 +1,89 @@
-.App {
+.App-header {
+  text-align: center;
+  color: deeppink;
+}
+.col0{
+  width: 80px;
+}
+.col1{
+  width: 150px;
+}
+.col2{
+  width: 150px;
+}
+.col3{
+  width: 150px;
+}
+.col4{
+  width: 100px;
+}
+.col5{
+  width: 50px;
+}
+table{
+  border: 1px black solid;
+  text-align: left;
+}
+.nameBtn{
+  cursor: pointer;
+}
+.container{
+  display: flex;
+  flex-direction:row;
+}
+.box1{
+  width: 700px;
+}
+.box2{
+  text-align: left;
+  width: 500px;
+}
+.display_image{
+  width: 400px;
+  height: 400px;
+}
+.home{
+  width: 35px;
+  height: 35px;
+}
+.addBtn{
+margin-left: 60px;
+margin-bottom: 30px;
+color: white;
+border-radius: 50%;
+background-color: blue;
+cursor: pointer;
+}
+.searchBox{
+  margin-left: 10px;
+margin-bottom: 30px;
+width: 300px;
+}
+::placeholder{
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.delBtn{
+color: red;
+cursor: pointer;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.importNewData{
+  border-radius: 40%;
+  background-color: blue;
   color: white;
+  margin-left: 200px;
+  cursor: pointer;
 }
-
-.App-link {
-  color: #61dafb;
+.addNewSaveBtn{
+  border-radius: 40%;
+  background-color: green;
+  color: white;
+  margin-left: 200px;
+  cursor: pointer;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.addNewCloseBtn{
+  border-radius: 40%;
+  background-color: red;
+  color: white;
+  margin-left: 50px;
+  cursor: pointer;
 }

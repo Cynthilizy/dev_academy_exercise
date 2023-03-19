@@ -1,23 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
+import Table from './table';
+import { FaHome } from 'react-icons/fa';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div><a href="/"><FaHome className='home' style={{color:'deeppink'}}/></a></div>
+     <div className='App-header'><h1>Helsinki City Bike App</h1><p>Dev Academy pre-assignment</p></div>
+     <Table/>
     </div>
   );
 }

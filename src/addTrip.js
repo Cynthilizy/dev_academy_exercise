@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { addTrip } from "../controller";
 
 const defaultFormData = {
   Departure: '',
@@ -13,7 +12,7 @@ const defaultFormData = {
   Duration_Seconds: ''
 };
 
-const addTrip = () => {
+const AddTrip = () => {
   const navigate = useNavigate();
   const [addNew, setAddNew] = useState(defaultFormData);
   const [formData, setFormData] = useState(new FormData());
@@ -141,4 +140,4 @@ const addTrip = () => {
     </form>
   );
 }
-export default addTrip;
+export default AddTrip;

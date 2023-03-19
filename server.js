@@ -46,7 +46,7 @@ app.route('/trip/:id')
 
 app.route('/trip')
    .get(controller.fetchTrip)
-    .post(controller.addTrip);
+    .post(controller.addNewTrip);
 
 app.listen(port, hostname, () => {
     console.log(`Server running AT http://${hostname}:${port}/`);
