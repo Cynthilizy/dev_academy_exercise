@@ -37,6 +37,7 @@ table{
 .box2{
   text-align: left;
   width: 500px;
+  margin-left: 50px;
 }
 .display_image{
   width: 400px;
@@ -50,7 +51,7 @@ table{
 margin-left: 60px;
 margin-bottom: 30px;
 color: white;
-border-radius: 50%;
+border-radius: 40%;
 background-color: blue;
 cursor: pointer;
 }
@@ -66,13 +67,6 @@ width: 300px;
 color: red;
 cursor: pointer;
 }
-.importNewData{
-  border-radius: 40%;
-  background-color: blue;
-  color: white;
-  margin-left: 200px;
-  cursor: pointer;
-}
 .addNewSaveBtn{
   border-radius: 40%;
   background-color: green;
@@ -86,4 +80,12 @@ cursor: pointer;
   color: white;
   margin-left: 50px;
   cursor: pointer;
+}
+.stationBtn{
+  margin-left: 50px;
+margin-bottom: 30px;
+color: white;
+border-radius: 40%;
+background-color: blue;
+cursor: pointer;
 }

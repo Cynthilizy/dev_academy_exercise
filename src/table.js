@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Route, Link, Routes, BrowserRouter as Router } from "react-router-dom";
-//import addTrip from './AddTrip';
+import AddTrip from './AddTrip';
 import cyclingGif from './displayImages/cyclingGif.gif'
 import sunsetCycling from './displayImages/sunsetCycling.jpg';
 
@@ -9,6 +9,9 @@ import sunsetCycling from './displayImages/sunsetCycling.jpg';
 const Table = () => {
     const [newItem, setNewItem] = useState(cyclingGif);
     const [trips, setTrips] = useState([]);
+    const [stations, setStations] = useState([]);
+    const[tripList, setTripList] = useState([]);
+
 
     function searchTbl() {
         let input, filter, table, tr, td, i, txtValue, td1, td2;
@@ -21,15 +24,15 @@ const Table = () => {
             td1 = tr[i].getElementsByTagName("td")[1];
             td2 = tr[i].getElementsByTagName("td")[2];
             if (td1 || td2) {
-              txtValue = (td1.textContent || td1.innerText) + (td2.textContent || td2.innerText);
-              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-              } else {
-                tr[i].style.display = "none";
-              }
+                txtValue = (td1.textContent || td1.innerText) + (td2.textContent || td2.innerText);
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
             }
-          }
-          
+        }
+
         if (filter === "") {
             for (i = 0; i < tr.length; i++) {
                 tr[i].style.display = "";
@@ -43,6 +46,14 @@ const Table = () => {
             const trips = await res.json();
             setTrips(trips);
         }
+
+        const departureStations = [...new Set(trips.map(trip => trip.Departure_Station_Name))];
+        const returnStations = [...new Set(trips.map(trip => trip.Return_Station_Name))];
+        const allStations = [...departureStations, ...returnStations];
+        const uniqueStations = [...new Set(allStations)];
+
+        setStations(uniqueStations);
+
         fetchTrips();
     }, []);
 
@@ -60,6 +71,19 @@ const Table = () => {
         }
     }
 
+    const ListOfTrip = () => {
+        return (
+            <div>
+            <div><p>List of Stations</p></div>
+           {stations.map((station) => (
+                <ul key={station}>
+                    <li><button className='stationBtn'>{station}</button></li>
+                </ul>
+        ))}
+        </div>
+        )
+    }
+
     function metersToKm(meters) {
         return (meters / 1000).toFixed(2);
     }
@@ -71,9 +95,24 @@ const Table = () => {
     return (
         <Router>
             <div><input type="text" placeholder="search" className="searchBox" onKeyUp={() => searchTbl()} />
-                <Link to={`/trip/add`}><button className='addBtn' onClick={() => setNewItem(() => <addTrip newItem />)}
-
-                ><b>Add New</b></button></Link></div>
+                <Link to={`/trip/add`}><button className='addBtn' onClick={() => { 
+                    if(newItem==={AddTrip}){
+                    setNewItem(null)
+                    setTripList(null)
+                }else{
+                    setNewItem({AddTrip})
+                    setTripList(null)
+                }
+                     }}>
+                    <b>Add New Trip</b></button></Link><Link to={`/trip/stations`}><button className='stationBtn' onClick={() => { 
+                        if(tripList==={ListOfTrip}){
+                            setTripList(null)
+                            setNewItem(null)
+                        }else{
+                            setTripList({ListOfTrip})
+                            setNewItem(null)
+                        }
+                    }}><b>Show All Stations</b></button></Link></div>
             <div className='container'>
                 <div className='box1'>
                     <table className='tbl1'>
@@ -101,7 +140,8 @@ const Table = () => {
                         </tbody>
                     </table>
                     <Routes>
-                        <Route path='/trip/add' render={() => <addTrip newItem />} />
+                        <Route path='/trip/add' render={<AddTrip newItem />} />
+                        <Route path='/trip/stations' render={<ListOfTrip tripList />} />
                     </Routes>
 
                 </div>
@@ -109,8 +149,11 @@ const Table = () => {
                     {newItem === cyclingGif ?
                         <img src={cyclingGif} alt={sunsetCycling} className='display_image' />
                         :
-                        newItem &&
-                        <addTrip newItem={newItem} />}
+                        newItem ?
+                            <AddTrip newItem={newItem} />
+                            :
+                            tripList &&
+                            <ListOfTrip tripList={tripList} />}
                 </div>
             </div>
         </Router>
