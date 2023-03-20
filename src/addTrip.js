@@ -72,7 +72,7 @@ const AddTrip = () => {
       </label><br />
       <label>
         <div> Return time:</div>
-        <div> <input type="datetime-local" name="Return" value={addNew.Return_time} onChange={handleChange} /></div>
+        <div> <input type="datetime-local" name="Return_time" value={addNew.Return_time} onChange={handleChange} /></div>
       </label><br />
       <label>
         <div>Departure_Station_ID:</div>
