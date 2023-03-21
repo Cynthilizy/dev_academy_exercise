@@ -122,6 +122,16 @@ const Table = () => {
             }
         }, [station]);
 
+        const filterDataByMonth = (month) => {
+            if (Array.isArray(numberOfTrips)) {
+                const filteredData = numberOfTrips.filter(trip => {
+                    const tripDate = new Date(trip.date);
+                    return tripDate.getMonth() === month;
+                });
+                setNumberOfTrips(filteredData);
+            }
+        };
+
         return (
             <div>
                 {station && (
@@ -129,6 +139,20 @@ const Table = () => {
                         <div><b>Station Name:</b> {station.Nimi}</div>
                         <div><b>Station Address:</b> {station.Osoite}</div>
                         <div><b>Map location:</b><span>  Longitude = {station.cordinate_X}</span><span>, Latitude = {station.cordinate_Y}</span></div>
+                        <div>
+                            <button onClick={() => filterDataByMonth(0)}>January</button>
+                            <button onClick={() => filterDataByMonth(1)}>February</button>
+                            <button onClick={() => filterDataByMonth(2)}>March</button>
+                            <button onClick={() => filterDataByMonth(3)}>April</button>
+                            <button onClick={() => filterDataByMonth(4)}>May</button>
+                            <button onClick={() => filterDataByMonth(5)}>June</button>
+                            <button onClick={() => filterDataByMonth(6)}>July</button>
+                            <button onClick={() => filterDataByMonth(7)}>August</button>
+                            <button onClick={() => filterDataByMonth(8)}>September</button>
+                            <button onClick={() => filterDataByMonth(9)}>October</button>
+                            <button onClick={() => filterDataByMonth(10)}>November</button>
+                            <button onClick={() => filterDataByMonth(11)}>December</button>
+                        </div>
                         <div><b>Number of trips:</b> <span> trips from station =  {numberOfTrips.numTripsFromStation}</span><span>,  trips to station = {numberOfTrips.numTripsToStation}</span></div>
                         <div><b>Average distance of journey starting from station:</b> {numberOfTrips.avgDistanceFromStation}</div>
                         <div><b>Average distance of journey ending at station:</b> {numberOfTrips.avgDistanceToStation}</div>
@@ -137,20 +161,23 @@ const Table = () => {
                                 <div key={index}>
                                     Station Name: {station.Return_Station_Name}, Count: {station.count}
                                 </div>
-                            ))}</div>
+                            ))}
+                        </div>
 
                         <div><b>5 most popular departure stations for journeys ending at the station:</b>
                             {numberOfTrips.popularDepartureStations && numberOfTrips.popularDepartureStations.map((station, index) => (
                                 <div key={index}>
                                     Station Name: {station.Departure_Station_Name}, Count: {station.count}
                                 </div>
-                            ))}</div>
+                            ))}
+                        </div>
 
                     </div>
                 )}
             </div>
         );
     };
+
 
     const ModalFunction = () => {
 
@@ -167,7 +194,7 @@ const Table = () => {
                             <p><b>Station Information</b></p>
                         </div>
                         <button className='modalClose' onClick={HandleClose}>Close</button>
-                        <div class="modal-content">
+                        <div className="modal-content">
                             <StationInfo />
                         </div>
                     </div>
