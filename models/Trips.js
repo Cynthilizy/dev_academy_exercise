@@ -1,11 +1,15 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { Sequelize, DataTypes, Model, Op } = require('sequelize');
 
 const sequelize = new Sequelize('dev_academy_exercise', 'appuser', 'mypassword', {
   host: 'localhost',
   dialect: 'mysql'
 });
 
+const startDate = new Date(2021, 6, 1); // July 1, 2021
+const endDate = new Date(2021, 7, 1); // August 1, 2021
+
 class Trip extends Model {}
+class Station extends Model{}
 
 Trip.init({
   ID:{
@@ -20,22 +24,22 @@ Trip.init({
     type: DataTypes.DATE
   },
   Departure_Station_ID:{
-    type: DataTypes.INTEGER(11)
+    type: DataTypes.INTEGER
   },
   Departure_Station_Name:{
     type: DataTypes.STRING(255)
   },
   Return_Station_ID:{
-    type: DataTypes.INTEGER(11)
+    type: DataTypes.INTEGER
   },
   Return_Station_Name: {
     type: DataTypes.STRING(255)
   },
   Covered_Distance_Meters:{
-    type: DataTypes.INTEGER(11)
+    type: DataTypes.INTEGER
   },
   Duration_Seconds: {
-    type: DataTypes.INTEGER(11)
+    type: DataTypes.INTEGER
   }
 }, {
   sequelize,
@@ -43,16 +47,67 @@ Trip.init({
   timestamps: false
 });
 
-// Fetch last 10 trips based on the Departure column
 Trip.findAll({
-  order: [['Departure', 'DESC']],
-  limit: 10
-})
-.then(trips => {
-  console.log(trips);
-})
-.catch(error => {
-  console.error(error);
+  where: {
+    Departure: {
+      [Op.gte]: startDate,
+      [Op.lt]: endDate
+    }
+  }
 });
 
-module.exports = Trip;
+Station.init({
+  Fid:{
+    type: DataTypes.INTEGER
+  },
+  ID:{
+    type: DataTypes.INTEGER
+  },
+  Nimi:{
+    type: DataTypes.STRING(255)
+  },
+  Namn:{
+    type: DataTypes.STRING(255)
+  },
+  Station_Name:{
+    type: DataTypes.STRING(255)
+  },
+  Osoite:{
+    type: DataTypes.STRING(255)
+  },
+  Address:{
+    type: DataTypes.STRING(255)
+  },
+  Kaupunki: {
+    type: DataTypes.STRING(255)
+  },
+  Stad:{
+    type: DataTypes.STRING(255)
+  },
+  Operaattor: {
+    type: DataTypes.STRING(255)
+  },
+  Kapasiteet: {
+    type: DataTypes.INTEGER
+  },
+  cordinate_X: {
+    type: DataTypes.DECIMAL(10,7)
+  },
+  cordinate_Y: {
+    type: DataTypes.DECIMAL(10,7)
+  }
+}, {
+  sequelize,
+  modelName: 'stationdata',
+  timestamps: false
+});
+
+Station.findAll({
+  
+});
+
+const db = {
+  Trip,
+  Station
+};
+module.exports = db;

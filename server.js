@@ -38,15 +38,18 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'));
 
-
 app.route('/trip/:id')
-    .get(controller.fetchSingleTrip)
-    .put(controller.updateTrip)
     .delete(controller.deleteTrip);
 
 app.route('/trip')
-   .get(controller.fetchTrip)
+    .get(controller.fetchTrip)
     .post(controller.addNewTrip);
+
+app.route('/station')
+    .get(controller.fetchStation);
+
+app.route('/station/:name')
+    .get(controller.fetchSingleStation);
 
 app.listen(port, hostname, () => {
     console.log(`Server running AT http://${hostname}:${port}/`);

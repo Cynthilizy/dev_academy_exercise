@@ -13,11 +13,16 @@ async function validateConnection() {
   
   validateConnection();
 
+  const Station = require('./Trips');
   const Trip = require('./Trips');
 
   sequelize.sync({ force: true });
 
-module.exports =  {Trip};
+  const db = {
+    Trip,
+    Station
+  };
+  module.exports = db;
 
 
 
