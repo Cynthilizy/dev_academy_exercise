@@ -106,15 +106,46 @@ const Table = () => {
         const station = showInfo.find(info => info.Nimi === name);
         return station ? station : null;
     }
+
     const StationInfo = () => {
+        const [numberOfTrips, setNumberOfTrips] = useState({});
         const station = singleStation(selectedItem);
+
+        const fetchStationLength = async (e) => {
+            const response = await fetch(`http://localhost:3070/name/${e}`, { method: 'GET' });
+            const data = await response.json();
+            setNumberOfTrips(data);
+        }
+        useEffect(() => {
+            if (station) {
+                fetchStationLength(station.Nimi);
+            }
+        }, [station]);
+
         return (
             <div>
                 {station && (
                     <div>
-                        <div className='cell1'><b>Station Name:</b> {station.Nimi}</div>
-                        <div className='cell2'><b>Station Address:</b> {station.Osoite}</div>
-                        <div className='cell5'><b>map location:</b><span>longitude: {station.cordinate_X}</span><span>latitude: {station.cordinate_Y}</span></div>
+                        <div><b>Station Name:</b> {station.Nimi}</div>
+                        <div><b>Station Address:</b> {station.Osoite}</div>
+                        <div><b>Map location:</b><span>  Longitude = {station.cordinate_X}</span><span>, Latitude = {station.cordinate_Y}</span></div>
+                        <div><b>Number of trips:</b> <span> trips from station =  {numberOfTrips.numTripsFromStation}</span><span>,  trips to station = {numberOfTrips.numTripsToStation}</span></div>
+                        <div><b>Average distance of journey starting from station:</b> {numberOfTrips.avgDistanceFromStation}</div>
+                        <div><b>Average distance of journey ending at station:</b> {numberOfTrips.avgDistanceToStation}</div>
+                        <div><b>5 most popular return stations for journeys starting from the station:</b>
+                            {numberOfTrips.popularReturnStations && numberOfTrips.popularReturnStations.map((station, index) => (
+                                <div key={index}>
+                                    Station Name: {station.Return_Station_Name}, Count: {station.count}
+                                </div>
+                            ))}</div>
+
+                        <div><b>5 most popular departure stations for journeys ending at the station:</b>
+                            {numberOfTrips.popularDepartureStations && numberOfTrips.popularDepartureStations.map((station, index) => (
+                                <div key={index}>
+                                    Station Name: {station.Departure_Station_Name}, Count: {station.count}
+                                </div>
+                            ))}</div>
+
                     </div>
                 )}
             </div>
@@ -133,7 +164,7 @@ const Table = () => {
                 {showModal && (
                     <div className="modal">
                         <div className='modal-header'>
-                            <p>Station Info</p>
+                            <p><b>Station Information</b></p>
                         </div>
                         <button className='modalClose' onClick={HandleClose}>Close</button>
                         <div class="modal-content">
@@ -176,7 +207,7 @@ const Table = () => {
     }
     return (
         <Router>
-            <ModalFunction/>
+            <ModalFunction />
             <div><input type="text" placeholder="search" className="searchBox" onKeyUp={() => searchTbl()} />
                 <Link to={`/trip/add`}><button className='addBtn' onClick={() => {
                     if (newItem === { AddTrip }) {

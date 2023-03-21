@@ -51,6 +51,9 @@ app.route('/station')
 app.route('/station/:name')
     .get(controller.fetchSingleStation);
 
+app.route('/name/:name')
+    .get(controller.fetchStationDetails);
+
 app.listen(port, hostname, () => {
     console.log(`Server running AT http://${hostname}:${port}/`);
 });

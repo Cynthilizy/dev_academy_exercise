@@ -1,3 +1,4 @@
+const { sequelize } = require('./models');
 const db = require('./models/Trips');
 const Trip = db.Trip;
 const Station = db.Station;
@@ -30,7 +31,7 @@ module.exports = {
       });
       res.json(trips)
     }
-    catch (error) { // if promise is reject or any other problem comes up
+    catch (error) {
       res.status(500);
       res.json({ "status_text": "error in server: " + error });
     }
@@ -43,7 +44,7 @@ module.exports = {
       });
       res.json(stations)
     }
-    catch (error) { // if promise is reject or any other problem comes up
+    catch (error) {
       res.status(500);
       res.json({ "status_text": "error in server: " + error });
     }
@@ -59,7 +60,7 @@ module.exports = {
       });
       res.json(station);
     }
-    catch (error) { // if promise is rejected or any other problem comes up
+    catch (error) {
       res.status(500);
       res.json({ "status_text": "error in server: " + error });
     }
@@ -76,5 +77,69 @@ module.exports = {
       res.status(500);
       res.json({ "status_text": "error in server: " + error });
     });
-  }
-};
+  },
+
+  fetchStationDetails: async function (req, res) {
+    try {
+      const stationName = req.params.name;
+  
+      const station = await Station.findOne({
+        where: {
+          Station_Name: stationName
+        }
+      });
+  
+      const tripsFromStation = await Trip.findAll({
+        where: {
+          Departure_Station_Name: stationName
+        }
+      });
+      const numTripsFromStation = tripsFromStation.length;
+      const avgDistanceFromStation = tripsFromStation.reduce((sum, trip) => sum + trip.Distance, 0) / numTripsFromStation;
+  
+      const tripsToStation = await Trip.findAll({
+        where: {
+          Return_Station_Name: stationName
+        }
+      });
+      const numTripsToStation = tripsToStation.length;
+      const avgDistanceToStation = tripsToStation.reduce((sum, trip) => sum + trip.Distance, 0) / numTripsToStation;
+  
+      const popularReturnStations = await Trip.findAll({
+        attributes: ['Return_Station_Name', [sequelize.fn('count', sequelize.col('Return_Station_Name')), 'count']],
+        where: {
+          Departure_Station_Name: stationName
+        },
+        group: 'Return_Station_Name',
+        order: [[sequelize.literal('count'), 'DESC']],
+        limit: 5
+      });
+  
+      const popularDepartureStations = await Trip.findAll({
+        attributes: ['Departure_Station_Name', [sequelize.fn('count', sequelize.col('Departure_Station_Name')), 'count']],
+        where: {
+          Return_Station_Name: stationName
+        },
+        group: 'Departure_Station_Name',
+        order: [[sequelize.literal('count'), 'DESC']],
+        limit: 5
+      });
+  
+      const response = {
+        station,
+        numTripsFromStation,
+        numTripsToStation,
+        avgDistanceFromStation,
+        avgDistanceToStation,
+        popularReturnStations,
+        popularDepartureStations
+      };
+  
+      res.json(response);
+    }
+    catch (error) {
+      res.status(500);
+      res.json({ "status_text": "error in server: " + error });
+    }
+  }  
+};  
