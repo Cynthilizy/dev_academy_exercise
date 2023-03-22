@@ -47,15 +47,6 @@ Trip.init({
   timestamps: false
 });
 
-Trip.findAll({
-  where: {
-    Departure: {
-      [Op.gte]: startDate,
-      [Op.lt]: endDate
-    }
-  }
-});
-
 Station.init({
   Fid:{
     type: DataTypes.INTEGER
@@ -100,10 +91,6 @@ Station.init({
   sequelize,
   modelName: 'stationdata',
   timestamps: false
-});
-
-Station.findAll({
-  
 });
 
 const db = {
