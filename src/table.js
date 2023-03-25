@@ -109,29 +109,33 @@ const Table = () => {
 
     const StationInfo = () => {
         const [numberOfTrips, setNumberOfTrips] = useState({});
+        const [filteredTrips, setFilteredTrips] = useState(null);
+        const [selectedMonth, setSelectedMonth] = useState(null);
         const station = singleStation(selectedItem);
 
-        const fetchStationLength = async (e) => {
-            const response = await fetch(`http://localhost:3070/name/${e}`, { method: 'GET' });
-            const data = await response.json();
-            setNumberOfTrips(data);
+        const fetchStationLength = async (name, month) => {
+            const responseName = await fetch(`http://localhost:3070/name/${name}`, { method: 'GET' });
+            const dataName = await responseName.json();
+            setNumberOfTrips(dataName);
+
+            if (month !== null) {
+                const responseMonth = await fetch(`http://localhost:3070/name/${name}/month/${month}`, { method: 'GET' });
+                const dataMonth = await responseMonth.json();
+                setFilteredTrips(dataMonth);
+            } else {
+                setFilteredTrips(null);
+            }
         }
+
         useEffect(() => {
             if (station) {
-                fetchStationLength(station.Nimi);
+                fetchStationLength(station.Nimi, selectedMonth);
             }
-        }, [station]);
+        }, [station, selectedMonth]);
 
         const filterDataByMonth = (month) => {
-            if (Array.isArray(numberOfTrips)) {
-                const filteredData = numberOfTrips.filter(trip => {
-                    const tripDate = new Date(trip.date);
-                    return tripDate.getMonth() === month;
-                });
-                setNumberOfTrips(filteredData);
-            }
+            setSelectedMonth(month);
         };
-
         return (
             <div>
                 {station && (
@@ -140,44 +144,58 @@ const Table = () => {
                         <div><b>Station Address:</b> {station.Osoite}</div>
                         <div><b>Map location:</b><span>  Longitude = {station.cordinate_X}</span><span>, Latitude = {station.cordinate_Y}</span></div>
                         <div>
-                            <button onClick={() => filterDataByMonth(0)}>January</button>
-                            <button onClick={() => filterDataByMonth(1)}>February</button>
-                            <button onClick={() => filterDataByMonth(2)}>March</button>
-                            <button onClick={() => filterDataByMonth(3)}>April</button>
-                            <button onClick={() => filterDataByMonth(4)}>May</button>
-                            <button onClick={() => filterDataByMonth(5)}>June</button>
-                            <button onClick={() => filterDataByMonth(6)}>July</button>
-                            <button onClick={() => filterDataByMonth(7)}>August</button>
-                            <button onClick={() => filterDataByMonth(8)}>September</button>
-                            <button onClick={() => filterDataByMonth(9)}>October</button>
-                            <button onClick={() => filterDataByMonth(10)}>November</button>
-                            <button onClick={() => filterDataByMonth(11)}>December</button>
+                            <select
+                                value={selectedMonth === null ? '' : selectedMonth}
+                                onChange={(e) => filterDataByMonth(parseInt(e.target.value))}>
+                                <option value=''>All Months</option>
+                                <option value={0}>January</option>
+                                <option value={1}>February</option>
+                                <option value={2}>March</option>
+                                <option value={3}>April</option>
+                                <option value={4}>May</option>
+                                <option value={5}>June</option>
+                                <option value={6}>July</option>
+                                <option value={7}>August</option>
+                                <option value={8}>September</option>
+                                <option value={9}>October</option>
+                                <option value={10}>November</option>
+                                <option value={11}>December</option>
+                            </select>
                         </div>
-                        <div><b>Number of trips:</b> <span> trips from station =  {numberOfTrips.numTripsFromStation}</span><span>,  trips to station = {numberOfTrips.numTripsToStation}</span></div>
-                        <div><b>Average distance of journey starting from station:</b> {numberOfTrips.avgDistanceFromStation}</div>
-                        <div><b>Average distance of journey ending at station:</b> {numberOfTrips.avgDistanceToStation}</div>
+                        <div><b>Number of trips:</b> <span> trips from station =  {filteredTrips ? filteredTrips.numTripsFrom : numberOfTrips.numTripsFromStation}</span><span>,  trips to station = {filteredTrips ? filteredTrips.numTripsTo : numberOfTrips.numTripsToStation}</span></div>
+                        <div><b>Average distance of journeys starting from station:</b> {filteredTrips ? filteredTrips.avgFromStation : numberOfTrips.avgDistanceFromStation} Meters</div>
+                        <div><b>Average distance of journeys ending at station:</b> {filteredTrips ? filteredTrips.avgToStation : numberOfTrips.avgDistanceToStation} Meters</div>
                         <div><b>5 most popular return stations for journeys starting from the station:</b>
-                            {numberOfTrips.popularReturnStations && numberOfTrips.popularReturnStations.map((station, index) => (
+                            {filteredTrips ? filteredTrips.popularReturnStations && filteredTrips.popularReturnStations.map((station, index) => (
                                 <div key={index}>
                                     Station Name: {station.Return_Station_Name}, Count: {station.count}
                                 </div>
-                            ))}
+                            ))
+                                : numberOfTrips.popularReturnStations && numberOfTrips.popularReturnStations.map((station, index) => (
+                                    <div key={index}>
+                                        Station Name: {station.Return_Station_Name}, Count: {station.count}
+                                    </div>
+                                ))
+                            }
                         </div>
-
                         <div><b>5 most popular departure stations for journeys ending at the station:</b>
-                            {numberOfTrips.popularDepartureStations && numberOfTrips.popularDepartureStations.map((station, index) => (
+                            {filteredTrips ? filteredTrips.popularDepartureStations && filteredTrips.popularDepartureStations.map((station, index) => (
                                 <div key={index}>
                                     Station Name: {station.Departure_Station_Name}, Count: {station.count}
                                 </div>
-                            ))}
+                            ))
+                                : numberOfTrips.popularDepartureStations && numberOfTrips.popularDepartureStations.map((station, index) => (
+                                    <div key={index}>
+                                        Station Name: {station.Departure_Station_Name}, Count: {station.count}
+                                    </div>
+                                ))
+                            }
                         </div>
-
                     </div>
                 )}
             </div>
         );
     };
-
 
     const ModalFunction = () => {
 

@@ -54,6 +54,9 @@ app.route('/station/:name')
 app.route('/name/:name')
     .get(controller.fetchStationDetails);
 
+app.route('/name/:name/month/:month')
+    .get(controller.getMonthlyData);
+
 app.listen(port, hostname, () => {
     console.log(`Server running AT http://${hostname}:${port}/`);
 });
