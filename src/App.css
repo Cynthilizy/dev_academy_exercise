@@ -1,99 +1,191 @@
 .App-header {
   text-align: center;
-  color: deeppink;
+  color: #333;
+  font-size: 32px;
+  padding: 24px;
+  background-color: #f8f8f8;
 }
-.col0{
+
+.col0 {
   width: 80px;
 }
-.col1{
+
+.col1 {
   width: 150px;
 }
-.col2{
+
+.col2 {
   width: 150px;
 }
-.col3{
+
+.col3 {
   width: 150px;
 }
-.col4{
+
+.col4 {
   width: 100px;
 }
-.col5{
+
+.col5 {
   width: 50px;
 }
-table{
-  border: 1px black solid;
-  text-align: left;
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 24px 0;
 }
-.nameBtn{
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.nameBtn {
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #007bff;
 }
-.container{
+
+.container {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
 }
-.box1{
-  width: 700px;
+
+.box1 {
+  width: 60%;
+  margin-right: 24px;
 }
-.box2{
-  text-align: left;
-  width: 500px;
-  margin-left: 50px;
+
+.box2 {
+  width: 40%;
+  text-align: center;
+  margin-left: 24px;
+  display: block;
 }
-.display_image{
-  width: 400px;
-  height: 400px;
+
+.display_image {
+  max-width: 100%;
+  height: auto;
 }
-.home{
+
+.home {
   width: 35px;
   height: 35px;
 }
-.addBtn{
-margin-left: 60px;
-margin-bottom: 30px;
-color: white;
-border-radius: 40%;
-background-color: blue;
-cursor: pointer;
+
+.addBtn {
+  margin-left: 60px;
+  margin-bottom: 30px;
+  color: white;
+  border-radius: 50%;
+  background-color: #28a745;
+  cursor: pointer;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
-.searchBox{
+
+.searchBox {
   margin-left: 10px;
-margin-bottom: 30px;
-width: 300px;
-}
-::placeholder{
+  margin-bottom: 30px;
+  width: 300px;
+  border-radius: 25px;
+  padding: 10px;
+  border: none;
+  background-color: #f1f1f1;
   text-align: center;
 }
-.delBtn{
-color: red;
-cursor: pointer;
+
+::placeholder {
+  text-align: center;
 }
-.addNewSaveBtn{
-  border-radius: 40%;
-  background-color: green;
+
+.delBtn {
+  color: red;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.addNewSaveBtn {
+  border-radius: 50%;
+  background-color: #28a745;
   color: white;
   margin-left: 200px;
   cursor: pointer;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
-.addNewCloseBtn{
-  border-radius: 40%;
-  background-color: red;
+
+.addNewCloseBtn {
+  border-radius: 50%;
+  background-color: #dc3545;
   color: white;
   margin-left: 50px;
   cursor: pointer;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
-.stationBtn{
+
+.stationListBtn {
   margin-left: 50px;
-margin-bottom: 30px;
-color: white;
-border-radius: 40%;
-background-color: blue;
-cursor: pointer;
+  margin-bottom: 30px;
+  color: white;
+  border-radius: 50%;
+  background-color: #28a745;
+  cursor: pointer;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
-.stationListClose{
-  background-color: green;
+
+
+.stationBtn:hover {
+  font-size: 1.2em;
+}
+
+
+.stationBtn {
+  margin-left: 50px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.stationListClose {
+  background-color: #4CAF50;
   margin-left: 20px;
   color: white;
   cursor: pointer;
+  border: none;
+  padding: 15px 32px;
   border-radius: 30%;
 }
 .modal {
@@ -129,3 +221,41 @@ cursor: pointer;
   text-decoration: none;
   cursor: pointer;
 }
+.tripForm{
+  background-color: aqua;
+  text-align: center;
+}
+ul{
+  list-style: none;
+}
+.modalWrapper {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.modalWrapper > div {
+  margin-bottom: 10px;
+}
+
+.modalWrapper b {
+  font-weight: bold;
+}
+
+.modalWrapper .monthsBtn {
+  margin-bottom: 20px;
+}
+
+.modalWrapper select {
+  font-size: 14px;
+  padding: 5px;
+}
+
+.modalWrapper .topFive {
+  margin-top: 20px;
+}
+
+.modalWrapper .listedFive {
+  margin-top: 10px;
+}
+
+

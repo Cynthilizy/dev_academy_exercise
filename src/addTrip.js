@@ -44,7 +44,7 @@ const AddTrip = () => {
       });
 
       if (response.ok) {
-        window.alert("New material added");
+        window.alert("New trip added");
       }else{
         window.alert("Error in uploading");
         throw new Error('Failed to add trip');
@@ -65,7 +65,7 @@ const AddTrip = () => {
 
 
   return (
-    <form name="formAdd">
+    <form name="formAdd" className="form">
       <label>
         <div> Departure time:</div>
         <div> <input type="datetime-local" name="Departure" value={addNew.Departure} onChange={handleChange} /></div>

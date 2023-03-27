@@ -134,20 +134,24 @@ const Table = () => {
         }, [station, selectedMonth]);
 
         const filterDataByMonth = (month) => {
-            setSelectedMonth(month);
+            if (month === null) {
+                setSelectedMonth(null);
+            } else {
+                setSelectedMonth(parseInt(month));
+            }
         };
         return (
             <div>
                 {station && (
-                    <div>
+                    <div className='modalWrapper'>
                         <div><b>Station Name:</b> {station.Nimi}</div>
                         <div><b>Station Address:</b> {station.Osoite}</div>
                         <div><b>Map location:</b><span>  Longitude = {station.cordinate_X}</span><span>, Latitude = {station.cordinate_Y}</span></div>
-                        <div>
+                        <div className='monthsBtn'>
                             <select
-                                value={selectedMonth === null ? '' : selectedMonth}
-                                onChange={(e) => filterDataByMonth(parseInt(e.target.value))}>
-                                <option value=''>All Months</option>
+                                value={selectedMonth === null ? 'null' : selectedMonth}
+                                onChange={(e) => filterDataByMonth(e.target.value !== 'null' ? parseInt(e.target.value) : null)}>
+                                <option value='null'>All Months</option>
                                 <option value={0}>January</option>
                                 <option value={1}>February</option>
                                 <option value={2}>March</option>
@@ -165,27 +169,27 @@ const Table = () => {
                         <div><b>Number of trips:</b> <span> trips from station =  {filteredTrips ? filteredTrips.numTripsFrom : numberOfTrips.numTripsFromStation}</span><span>,  trips to station = {filteredTrips ? filteredTrips.numTripsTo : numberOfTrips.numTripsToStation}</span></div>
                         <div><b>Average distance of journeys starting from station:</b> {filteredTrips ? filteredTrips.avgFromStation : numberOfTrips.avgDistanceFromStation} Meters</div>
                         <div><b>Average distance of journeys ending at station:</b> {filteredTrips ? filteredTrips.avgToStation : numberOfTrips.avgDistanceToStation} Meters</div>
-                        <div><b>5 most popular return stations for journeys starting from the station:</b>
+                        <div className='topFive'><b>5 most popular return stations for journeys starting from the station:</b>
                             {filteredTrips ? filteredTrips.popularReturnStations && filteredTrips.popularReturnStations.map((station, index) => (
-                                <div key={index}>
+                                <div key={index} className='listedFive'>
                                     Station Name: {station.Return_Station_Name}, Count: {station.count}
                                 </div>
                             ))
                                 : numberOfTrips.popularReturnStations && numberOfTrips.popularReturnStations.map((station, index) => (
-                                    <div key={index}>
+                                    <div key={index} className='listedFive'>
                                         Station Name: {station.Return_Station_Name}, Count: {station.count}
                                     </div>
                                 ))
                             }
                         </div>
-                        <div><b>5 most popular departure stations for journeys ending at the station:</b>
+                        <div className='topFive'><b>5 most popular departure stations for journeys ending at the station:</b>
                             {filteredTrips ? filteredTrips.popularDepartureStations && filteredTrips.popularDepartureStations.map((station, index) => (
-                                <div key={index}>
+                                <div key={index} className='listedFive'>
                                     Station Name: {station.Departure_Station_Name}, Count: {station.count}
                                 </div>
                             ))
                                 : numberOfTrips.popularDepartureStations && numberOfTrips.popularDepartureStations.map((station, index) => (
-                                    <div key={index}>
+                                    <div key={index} className='listedFive'>
                                         Station Name: {station.Departure_Station_Name}, Count: {station.count}
                                     </div>
                                 ))
@@ -237,7 +241,7 @@ const Table = () => {
                 <ul>
                     {stations.map((station, index) => (
                         <li key={index}>
-                            <button onClick={handleStationClick}>{station}</button>
+                            <button className='stationBtn' onClick={handleStationClick}>{station}</button>
                         </li>
                     ))}
                 </ul>
@@ -263,7 +267,7 @@ const Table = () => {
                         setTripList(null)
                     }
                 }}>
-                    <b>Add New Trip</b></button></Link><Link to={`/trip/stations`}><button className='stationBtn' onClick={() => {
+                    <b>Add New Trip</b></button></Link><Link to={`/trip/stations`}><button className='stationListBtn' onClick={() => {
                         if (tripList === { ListOfTrip }) {
                             setTripList(null)
                             setNewItem(null)
