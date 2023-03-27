@@ -28,7 +28,7 @@ module.exports = {
     try {
       const trips = await Trip.findAll({
         order: [['Departure', 'DESC']],
-        limit: 10
+        limit: 100
       });
       res.json(trips)
     }
