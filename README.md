@@ -7,13 +7,13 @@ Before you can run this application, you will need to have the following install
 
 - [Node.js](https://nodejs.org/) - version 14 or later is recommended
 - [Docker](https://www.docker.com/)
-
+- [git lfs](https://git-lfs.com/) follow the instruction to activate git-lfs
 ## Installation
 
 You can download the directory containing the application code as a ZIP file by clicking the green "Code" button above and selecting "Download ZIP". Alternatively, you can clone the directory using the following command:
 
 ```powershell
-git clone https://github.com/cynthilizy/dev_academy_exercise.git
+git clone https://github.com/Cynthilizy/dev_academy_exercise.git
 cd dev_academy_exercise
 ```
 The required Node modules are included in a subfolder in the directory, so you do not need to install them separately using `npm install`.
