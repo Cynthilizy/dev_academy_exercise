@@ -4,6 +4,7 @@ import { Route, Link, Routes, BrowserRouter as Router } from "react-router-dom";
 import AddTrip from './AddTrip';
 import cyclingGif from './displayImages/cyclingGif.gif'
 import sunsetCycling from './displayImages/sunsetCycling.jpg';
+import { FaTrash } from 'react-icons/fa';
 
 
 const Table = () => {
@@ -298,7 +299,7 @@ const Table = () => {
                                     <td>{item.Return_Station_Name}</td>
                                     <td>{metersToKm(item.Covered_Distance_Meters)}</td>
                                     <td>{secondsToMin(item.Duration_Seconds)}</td>
-                                    <td><button onClick={(evt) => deleteMaterial(evt, item.ID)} className='delBtn' >delete</button></td>
+                                    <td><button onClick={(evt) => deleteMaterial(evt, item.ID)} className='delBtn' ><FaTrash className='delete' style={{color:'red'}}/></button></td>
                                 </tr>
                             ))}
                         </tbody>

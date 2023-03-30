@@ -46,13 +46,6 @@ th {
   background-color: #f2f2f2;
 }
 
-.nameBtn {
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  color: #007bff;
-}
-
 .container {
   display: flex;
   flex-direction: row;
@@ -108,13 +101,6 @@ th {
 
 ::placeholder {
   text-align: center;
-}
-
-.delBtn {
-  color: red;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
 }
 
 .addNewSaveBtn {
@@ -286,6 +272,10 @@ ul{
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
+}
+
+.delBtn{
+  cursor: pointer;
 }
 
 
