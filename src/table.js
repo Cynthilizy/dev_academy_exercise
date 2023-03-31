@@ -74,8 +74,12 @@ const Table = () => {
     useEffect(() => {
         async function fetchTrips() {
             const res = await fetch('http://localhost:3070/trip');
-            const trips = await res.json();
-            setTrips(trips);
+            let trips = await res.json();
+            if (!Array.isArray(trips)) {
+                trips = Object.values(trips);
+              }
+              setTrips(trips);
+              console.log("trips is an array: " + Array.isArray(trips));
 
             const departureStations = [...new Set(trips.map(trip => trip.Departure_Station_Name))];
             const returnStations = [...new Set(trips.map(trip => trip.Return_Station_Name))];
