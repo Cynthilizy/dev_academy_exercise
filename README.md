@@ -16,7 +16,7 @@ You can download the directory containing the application code as a ZIP file by 
 git clone https://github.com/Cynthilizy/dev_academy_exercise.git
 cd dev_academy_exercise
 ```
-The required Node modules are included in a subfolder in the directory, so you do not need to install them separately using `npm install`.
+The required Node modules will be installed by running `npm install`. in the dir terminal
 ## Running the Application
 Once you have cloned or downloaded the repository, navigate to the root directory of the project and make sure that Docker is running on your computer.
 
