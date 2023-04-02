@@ -2,7 +2,7 @@ const { Sequelize, DataTypes, Model, Op } = require('sequelize');
 
 const sequelize = new Sequelize('dev_academy_exercise', 'appuser', 'mypassword', {
   host: 'localhost',
-  dialect: 'mysql'
+  dialect: 'mariadb'
 });
 
 const startDate = new Date(2021, 6, 1); // July 1, 2021

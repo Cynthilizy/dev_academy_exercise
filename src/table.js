@@ -75,9 +75,6 @@ const Table = () => {
         async function fetchTrips() {
             const res = await fetch('http://localhost:3070/trip');
             let trips = await res.json();
-            if (!Array.isArray(trips)) {
-                trips = Object.values(trips);
-              }
               setTrips(trips);
               console.log("trips is an array: " + Array.isArray(trips));
 

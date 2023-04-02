@@ -3,7 +3,7 @@ module.exports = {
     USER: "appuser",
     PASSWORD: "mypassword",
     DB: "dev_academy_exercise",
-    dialect: "mysql",
+    dialect: "mariadb",
     pool: {
       max: 5,
       min: 0,
