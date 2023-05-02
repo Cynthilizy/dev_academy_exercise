@@ -6,7 +6,7 @@ i have deployed my database and React application to google cloud so you can hav
 the config file, model files, package.json file and server file have been updated to use google cloud instance. i have used pm2 in the google cloud compute engine instance amongst other settings to monitor the running process. also it is set to Norther-Europe region.
 the database schema is in the docker-db folder (to give you an idea how the database was created using sql)
 if you are here to get an idea to build something similar, feel free to clone or download this code.
-view how the app works with this address `http://35.228.64.72:3000` incase of questions message authour at @Cynthilizy
+view how the app works with this address `http://35.228.64.72:3000` preferably with google chrome, microsoft edge or mozilla firefox. incase of questions message author at cynthilizy@gmail.com
 ### Author
 Cynthia Sarah Monkap
 
