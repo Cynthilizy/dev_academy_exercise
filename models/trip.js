@@ -1,6 +1,7 @@
 
 const { Sequelize, DataTypes } = require('sequelize')
-const sequelize = new Sequelize('dev_academy_exercise', 'appuser', 'mypassword',{host: 'localhost', port: 3306, dialect: 'mariadb'})
+const sequelize = new Sequelize('dev_academy_exercise', 'appuser', 'mypassword',
+{host: 'localhost', port: 3306, dialect: 'mariadb'})
 
 async function validateConnection() {
     try {
