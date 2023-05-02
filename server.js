@@ -5,20 +5,12 @@ var app = express();
 var path = require('path');
 var fs = require("fs");
 
-// body-parser module is used to parse body in http requests to js objects
 var bodyParser = require('body-parser');
-
-// we'll use controller to routes to controller that handles spesific routes
 var controller = require('./controller');
-
-// these must be required also
 const http = require('http');
 const url = require('url');
 
 const hostname = '127.0.0.1';
-// 80 is default html port, 243 for https.
-// You can also use environment variables to define port
-// https://www.twilio.com/blog/working-with-environment-variables-in-node-js-html
 const port = process.env.PORT || 3070;
 
 //CORS middleware
